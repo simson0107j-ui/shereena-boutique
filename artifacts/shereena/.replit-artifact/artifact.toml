@@ -1,0 +1,28 @@
+kind = "web"
+previewPath = "/"
+title = "SHEREENA"
+description = "A premium responsive boutique website for SHEREENA, offering women's tailoring, embroidery, Aari work, bridal blouses, and custom ethnic wear for young women."
+version = "1.0.0"
+id = "artifacts/shereena"
+router = "path"
+
+[[services]]
+name = "web"
+paths = [ "/" ]
+localPort = 22515
+
+[services.development]
+run = "pnpm --filter @workspace/shereena run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/shereena", "run", "build" ]
+serve = "static"
+publicDir = "artifacts/shereena/dist/public"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"
+
+[services.env]
+PORT = "22515"
+BASE_PATH = "/"
